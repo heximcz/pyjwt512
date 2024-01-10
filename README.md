@@ -49,11 +49,13 @@ from pyjwt512 import Es512KeysManger
 es512 = Es512KeysManger()
 es512.generate_new_keys()
 
-if not es512.save_new_keys(cert_dir="/tmp"):
+cert_dir = "/tmp"
+
+if not es512.save_new_keys(cert_dir=cert_dir):
     print(f"Error generating keys")
 
-k_priv = os.path.join(dir, f"{es512.get_root_filename()}.pem")
-k_pub = os.path.join(dir, f"{es512.get_root_filename()}-public.pem")
+k_priv = os.path.join(cert_dir, f"{es512.get_root_filename()}.pem")
+k_pub = os.path.join(cert_dir, f"{es512.get_root_filename()}-public.pem")
 
 print(f"New keys has been saved in {k_pub} and {k_priv} file.")
 
