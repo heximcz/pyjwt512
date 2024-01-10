@@ -2,6 +2,10 @@
 
 A simple JWT manager with ES512 key management, token generation and validation with options to integrate into your project or use in the cli.
 
+## Install
+
+`pip install PyJwt512`
+
 ## Usage in CLI
 
 ```
