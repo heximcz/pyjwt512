@@ -25,26 +25,36 @@ class VerifyJwtToken:
         self.__iat: str = None
         self.__uid: int = None
         self.__kid: str = None
+        self.__claimset: dict = None
+        self.__header: dict = None
 
-    def get_iss(self) -> str:
+    def get_iss(self) -> str | None:
         """Get iss"""
         return self.__iss
 
-    def get_aud(self) -> str:
+    def get_aud(self) -> str | None:
         """Get sud"""
         return self.__aud
 
-    def get_iat(self) -> str:
+    def get_iat(self) -> str | None:
         """Get iat"""
         return self.__iat
 
-    def get_uid(self) -> int:
+    def get_uid(self) -> int | None:
         """Get uid"""
         return self.__uid
 
-    def get_kid(self) -> str:
+    def get_kid(self) -> str | None:
         """Get kid"""
         return self.__kid
+    
+    def get_header(self) -> dict | None:
+        """Get calimset"""
+        return self.__header
+    
+    def get_claimset(self) -> dict | None:
+        """Get calimset"""
+        return self.__claimset
 
     def validate(
         self, token: str, audience: str, cert_dir: str
@@ -90,8 +100,8 @@ class VerifyJwtToken:
         """
 
         try:
-            token_data = jwt.get_unverified_header(token)
-            self.__kid = token_data["kid"]
+            self.__header = jwt.get_unverified_header(token)
+            self.__kid = self.__header["kid"]
         except jwt.exceptions.DecodeError as e:
             raise InvalidTokenException(e)
 
@@ -112,6 +122,7 @@ class VerifyJwtToken:
             self.__aud = decoded_jwt["aud"]
             self.__iat = decoded_jwt["iat"]
             self.__uid = decoded_jwt["uid"]
+            self.__claimset = decoded_jwt
         except jwt.InvalidTokenError as e:
             raise InvalidTokenException(str(e))
         except Exception as e:
@@ -120,4 +131,4 @@ class VerifyJwtToken:
         return True
 
     def __str__(self) -> str:
-        return f"iss : {self.__iss}, aud : {self.__aud}, iat : {self.__iat}, uid : {self.__uid}, kid : {self.__kid}"
+        return f"Header: {self.__header}\nClaimset: {self.__claimset}"
