@@ -12,7 +12,7 @@ class jwt_tokens:
     Generate JWT, Create new ECDSA SHA-512 keys or validate a token with key.
     """
 
-    def token(self, dir: str, iss: str, aud: str, uid: int) -> None:
+    def token(self, dir: str, iss: str, aud: str, uid: int, custom: dict = None) -> None:
         """
         Create new JWT token.
 
@@ -21,6 +21,10 @@ class jwt_tokens:
             --iss=<issuer>: str
             --aud=<audince>: str
             --uid=<id>: int
+        Optional arguments:
+            --custom=<custom data>: dict
+            example:
+                --custom="{var1:value1,var2:value2}"
         """
         if os.path.exists(dir) and uid and iss and aud:
             payload = {
@@ -28,6 +32,17 @@ class jwt_tokens:
                 "aud": aud,
                 "uid": uid,
             }
+
+            # add custom to payload if exist and is dist
+            if custom:
+                if not isinstance(custom, dict):
+                    print(f"Error: --custom must be a dict.")
+                    return
+                for key, value in custom.items():
+                    if key not in payload:
+                        payload[key] = value
+
+            # create token
             try:
                 create_token = CreateJwtToken(cert_dir=dir, payload=payload)
                 if create_token.create():
@@ -69,7 +84,7 @@ class jwt_tokens:
             try:
                 if jwt_token.validate(token=token, audience=aud, cert_dir=dir):
                     print(f"Token is valid.")
-                    print(jwt_token)
+                    print(f"{jwt_token}")
             except InvalidTokenException as e:
                 print(f"InvalidTokenException: {e}")
         else:
@@ -80,6 +95,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-
-#if __name__ == "__main__":
-#    fire.Fire(jwt_tokens)
