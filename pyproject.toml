@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "PyJwt512"
-version = "0.1.16"
+version = "0.1.17"
 description = "Simple JWT Manager for ES512"
 authors = ["Lubomir Spacek <hexim@hexim.cz>"]
 readme = "README.md"
