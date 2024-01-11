@@ -49,11 +49,11 @@ class VerifyJwtToken:
         return self.__kid
     
     def get_header(self) -> dict | None:
-        """Get calimset"""
+        """Get header"""
         return self.__header
     
     def get_claimset(self) -> dict | None:
-        """Get calimset"""
+        """Get claimset"""
         return self.__claimset
 
     def validate(
