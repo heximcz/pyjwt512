@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "PyJwt512"
-version = "0.1.15"
+version = "0.1.16"
 description = "Simple JWT Manager for ES512"
 authors = ["Lubomir Spacek <hexim@hexim.cz>"]
 readme = "README.md"
@@ -21,6 +21,8 @@ pytest = "^7.4.4"
 pytest-cov = "^4.1.0"
 
 [tool.poetry.group.dev.dependencies]
+sphinx = "^7.2.6"
+sphinx-rtd-theme = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]
