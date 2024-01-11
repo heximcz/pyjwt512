@@ -41,5 +41,5 @@ class TestVerifyJwtToken(unittest.TestCase):
                     self.verifier.validate(invalid_token, self.audience, self.cert_dir)
 
     def test_str_representation(self):
-        expected_representation = f"iss : {None}, aud : {None}, iat : {None}, uid : {None}, kid : {None}"
+        expected_representation = f"Header: {None}\nClaimset: {None}"
         self.assertEqual(str(self.verifier), expected_representation)
