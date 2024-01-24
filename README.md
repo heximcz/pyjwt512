@@ -1,3 +1,8 @@
+## Obsolete!
+ - The package is functional, but I've decided not to further develop it.
+ - You can use [joserfc-wrapper](https://github.com/heximcz/joserfc-wrapper) instead.
+
+#
 # Simple JWT Manager for ES512
 
 A simple JWT manager with ES512 key management, token generation and validation with options to integrate into your project or use in the cli.
